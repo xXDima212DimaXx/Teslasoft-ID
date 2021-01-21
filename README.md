@@ -28,3 +28,5 @@
 > We're tested Mifare Classic and Mifare Light with 4 and 7 bytes serial numbers. Other types try at your own risk.
 
 #### You can develop your own backend to authenticate
+
+#### Compilied with AIDE. Use file *android-sdk.jar* to complie this project
