@@ -1,0 +1,1 @@
+If you see this page, please update your SmartCard app, or if app already updated, setup openning links in app (Settings > Apps & Notifications > All apps > Teslasoft SmartCard > Supported links > Open in this app)

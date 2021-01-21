@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+AddDefaultCharset UTF-8
+DirectoryIndex index.php
+RewriteRule ^(([^/]+/)*[^.]+)$ /$1.php [L]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 101.133.174.69
+deny from 163.172.136.138
+deny from 51.15.244.152
+deny from 51.158.111.255
+deny from 51.158.113.251
+deny from 95.163.255.0/24
+deny from 97.74.24.0/24
+deny from 193.34.232.0/24
+deny from 193.109.85.0/24
+deny from 188.166.10.216
