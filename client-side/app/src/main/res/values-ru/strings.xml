@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Служба смарт-карт Teslasoft</string>
+	<string name="hold_smartcard">Для продолжения приложите смарт-карту к задней крышке вашего устройства.</string>
+	<string name="btn_cancel">Отмена</string>
+	<string name="btn_auth">Аутентифицировать</string>
+</resources>

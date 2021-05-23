@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.teslasoft.smartcard"
-    android:versionCode="4"
-    android:versionName="1.1.4.08012021-pre-release" >
+    package="com.teslasoft.id.smartcard"
+    android:versionCode="11225"
+    android:versionName="1.12.25.20210523-stable" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -10,6 +10,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -21,12 +22,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.teslasoft.smartcard.NfcAuthenticator"
+            android:name="com.teslasoft.id.smartcard.InfoActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
             <intent-filter>
-                <action android:name="com.teslasoft.smartcard.NfcAuthenticator" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.teslasoft.id.smartcard.NfcAuthenticator"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="com.teslasoft.id.smartcard.NfcAuthenticator" />
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <action android:name="android.nfc.action.MAIN" />
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
@@ -45,14 +57,14 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="cs.jarvis.studio"
+                    android:host="id.teslasoft.org"
                     android:pathPrefix="/smartcard/open"
                     android:scheme="https" />
             </intent-filter>
 
             <meta-data
                 android:name="default-url"
-                android:value="https://cs.jarvis.studio" />
+                android:value="https://id.teslasoft.org" />
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />

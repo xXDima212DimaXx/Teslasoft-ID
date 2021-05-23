@@ -4,11 +4,10 @@
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowBackground">#00000000</item>
 		<item name="android:windowNoTitle">true</item>
-		<item name="android:backgroundDimEnabled">false</item>
 		<item name="colorAccent">#2e8b57</item>
 		<item name="colorPrimaryDark">#121212</item>
 		<item name="colorPrimary">#121212</item>
-		<item name="android:statusBarColor">#00000000</item>
+		<item name="android:statusBarColor">#99000000</item>
 		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
 		<item name="android:windowAnimationStyle">@style/Theme.Anim.Fade</item>
 		<item name="android:windowContentTransitions">true</item>

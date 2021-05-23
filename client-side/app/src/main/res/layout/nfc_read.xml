@@ -6,6 +6,7 @@
 	android:orientation="vertical"
 	android:background="#99000000"
 	android:gravity="center">
+
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="171dp"
@@ -14,35 +15,42 @@
 		android:layout_marginBottom="24dp"
 		android:layout_marginTop="-64dp"
 		android:id="@+id/loadbar"/>
+
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="To continue please hold your SmartCard to the back of your phone."
+		android:text="@string/hold_smartcard"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:id="@+id/nfc_message"
 		android:gravity="center"
 		android:layout_margin="24dp"/>
+
 	<ProgressBar
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"/>
+
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/actions"
 		android:visibility="gone">
+
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Cancel"
+			android:text="@string/btn_cancel"
 			android:layout_margin="8dp"
 			android:onClick="Close"/>
+
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Authenticate"
+			android:text="@string/btn_auth"
 			android:layout_margin="8dp"
 			android:onClick="Auth"/>
+
 	</LinearLayout>
+
 </LinearLayout>
 

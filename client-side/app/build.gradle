@@ -4,11 +4,11 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.teslasoft.smartcard"
+        applicationId "com.teslasoft.id.smartcard"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.1.4.08012021-pre-release"
+        versionCode 11225
+        versionName "1.12.25.20210523-stable"
     }
     buildTypes {
         release {

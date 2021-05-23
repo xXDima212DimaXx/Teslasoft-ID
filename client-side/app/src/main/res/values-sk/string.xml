@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Služby Teslasoft SmartCard</string>
+	<string name="hold_smartcard">Po pokracovani priklaďte vašu smart-kartu do zadu zariadenia.</string>
+	<string name="btn_cancel">Zrušiť</string>
+	<string name="btn_auth">Prihlasiť sa</string>
+</resources>

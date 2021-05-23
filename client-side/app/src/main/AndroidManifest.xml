@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.teslasoft.smartcard">
+    package="com.teslasoft.id.smartcard">
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.NFC" />
+	<uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
 	<uses-feature
         android:name="android.hardware.nfc"
         android:required="true"/>
@@ -12,12 +13,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 		<activity
+            android:name=".InfoActivity"
+            android:label="@string/app_name"
+			android:launchMode="singleTask"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+		<activity
             android:name=".NfcAuthenticator"
             android:label="@string/app_name"
 			android:launchMode="singleTask"
 			android:exported="true">
 			<intent-filter>
-				<action android:name="com.teslasoft.smartcard.NfcAuthenticator"/>
+				<action android:name="com.teslasoft.id.smartcard.NfcAuthenticator"/>
 				<action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 				<action android:name="android.nfc.action.MAIN"/>
 				<action android:name="android.nfc.action.TECH_DISCOVERED"/>
@@ -32,12 +43,12 @@
 				<category android:name="android.intent.category.BROWSABLE"/>
 				<data android:scheme="http"
 					android:scheme="https"
-					android:host="cs.jarvis.studio"
+					android:host="id.teslasoft.org"
 					android:pathPrefix="/smartcard/open"/>
 			</intent-filter>
 			<meta-data
 				android:name="default-url"
-				android:value="https://cs.jarvis.studio"/>
+				android:value="https://id.teslasoft.org"/>
 			<meta-data android:name="android.nfc.action.TECH_DISCOVERED"
 				android:resource="@xml/nfc_tech_filter"/>
 		</activity>

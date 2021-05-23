@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Teslasoft SmartCard</string>
+    <string name="app_name" translatable="true">Teslasoft SmartCard</string>
+	<string name="hold_smartcard" translatable="true">To continue please hold your SmartCard to the back of your phone.</string>
+	<string name="btn_cancel" translatable="true">Cancel</string>
+	<string name="btn_auth" translatable="true">Authenticate</string>
 </resources>
