@@ -4,4 +4,16 @@
 	<string name="hold_smartcard" translatable="true">To continue please hold your SmartCard to the back of your phone.</string>
 	<string name="btn_cancel" translatable="true">Cancel</string>
 	<string name="btn_auth" translatable="true">Authenticate</string>
+	<string name="teslasoft_smartcard_name">Teslasoft SmartCard</string>
+	<string name="developer_name">Developer: Teslasoft LLC</string>
+	<string name="smartcard_desc">Teslasoft SmartCard - an authentication technology that allows you to sign in to your account by using special NFC-cards. Please do not confuse SmartCard with government ID. This app does NOT generate falsificated documents/IDs/passports/etc. THIS APP IS AVALIABLE FOR ALL REGIONS WITHOUT MODIFYING FUNCTIONALITY.</string>
+	<string name="privacy_one">PRIVACY NOTICE (PLEASE READ CAREFULLY BEFORE USING THIS APP): This app does not collect any user data for analytical or advertisement purposes. All data are processed only with user\'s permission. Android device ID is only used to check your licence or perform security check. It is required to provide safety. The android ID is encrypted and removed from memory after user closes app. Android ID changes on each device factory reset. Please do not confuse android ID and serial number or IMEI. It is the different things (Unlike of serial number or IMEI, the android ID is different for each app installed on your device. It can not be used to identify your hardware or other sensetive info). By using this app you are agree that this app can access data on SmartCard (NFC-card) via NFC technology and read/change all data on it. Please do not use this app to read credit cards or other inappropriate NFC cards. This notice is placed here because previous version(-s) of this app are violated some Google Play terms. We strive to be transparent and process user\'s data only according the laws.</string>
+	<string name="privacy_two">We process your data on our servers that protected and verified with Cloudflare. All data are stored encrypted by using 256-bit AES keys (military encryption standard). We\'re using the latest TLS version 1.3 and force encryption. Noone (including hosting provider) can acces your data because we do not store security keys directly on the server (The security keys are stored on separated device that has not access to the Internet). We NEVER transfer your data to anyone. Server name: id.teslasoft.org</string>
+	<string name="privacy_three">If you afraid that this app collects extra data without your permission or violating any terms (Play Store, Github, etc), you can check their OPEN SOURCE code and recomplie it.</string>
+	<string name="suggestions">If you\'ve found any vulnerabilities or security bugs please immediatly contact us.</string>
+	<string name="note_one">This page is added due to the Google Play strike (reason: deceptive behavior).</string>
+	<string name="btn_authenticate">Authenticate</string>
+	<string name="btn_app_system_settings">App system settings</string>
+	<string name="btn_developer_privacy_policy">Developer privacy policy</string>
+	<string name="btn_view_open_source_github">View open source (Github)</string>
 </resources>

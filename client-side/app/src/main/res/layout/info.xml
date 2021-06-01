@@ -19,7 +19,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Teslasoft SmartCard"
+				android:text="@string/teslasoft_smartcard_name"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="#2E8B57"/>
 
@@ -33,26 +33,26 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Developer: Teslasoft LLC"
+				android:text="@string/developer_name"
 				android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Teslasoft SmartCard -  an authentication technology that allows you to sign in to your account by using special NFC-cards. Please do not confuse SmartCard with government ID. This app does NOT generate falsificated documents/IDs/passports/etc. THIS APP IS AVALIABLE FOR ALL REGIONS WITHOUT MODIFYING FUNCTIONALITY."
+				android:text="@string/smartcard_desc"
 				android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="PRIVACY NOTICE (PLEASE READ CAREFULLY BEFORE USING THIS APP): This app does not collect any user data for analytical or advertisement purposes. All data are processed only with user's permission. Android device ID is only used to check your licence or perform security check. It is required to provide safety. The android ID is encrypted and removed from memory after user closes app. Android ID changes on each device factory reset. Please do not confuse android ID and serial number or IMEI. It is the different things (Unlike of serial number or IMEI, the android ID is different for each app installed on your device. It can not be used to identify your hardware or other sensetive info). By using this app you are agree that this app can access data on SmartCard (NFC-card) via NFC technology and read/change all data on it. Please do not use this app to read credit cards or other inappropriate NFC cards. This notice is placed here because previous version(-s) of this app are violated some Google Play terms. We strive to be transparent and process user's data only according the laws."
+				android:text="@string/privacy_one"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#FFF300"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="We process your data on our servers that protected and verified with Cloudflare. All data are stored encrypted by using 256-bit AES keys (military encryption standard). We're using the latest TLS version 1.3 and force encryption. Noone (including hosting provider) can acces your data because we do not store security keys directly on the server (The security keys are stored on separated device that has not access to the Internet). We NEVER transfer your data to anyone. Server name: id.teslasoft.org"
+				android:text="@string/privacy_two"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#FFF300"/>
 
@@ -67,51 +67,49 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="If you afraid that this app collects extra data without your permission or violating any terms (Play Store, Github, etc), you can check thheir OPEN SOURCE code and recomplie it."
+				android:text="@string/privacy_three"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#FF5100"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="If you've found any vulnerabilities or secyrity bugs please immediatly contact us."
+				android:text="@string/suggestions"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#E1001A"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="This page is added due to the Google Play strike (reason: deceptive behavior)."
+				android:text="@string/note_one"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#004EFF"/>
 
 			<Button
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
-				android:text="Authenticate"
+				android:text="@string/btn_authenticate"
 				android:onClick="Auth"/>
 
 			<Button
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
-				android:text="App system settings"
+				android:text="@string/btn_app_system_settings"
 				android:onClick="Settings"/>
 
 			<Button
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
-				android:text="Developer privacy policy"
+				android:text="@string/btn_developer_privacy_policy"
 				android:onClick="Privacy"/>
 
 			<Button
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
-				android:text="View open source (Github)"
+				android:text="@string/btn_view_open_source_github"
 				android:onClick="Github"/>
 
 		</LinearLayout>
-
 	</ScrollView>
-
 </LinearLayout>
 

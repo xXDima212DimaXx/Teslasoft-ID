@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string translatable="true" name="app_name">Служба смарт-карт Teslasoft</string>
-	<string translatable="true" name="hold_smartcard">Для продолжения приложите смарт-карту к задней части вашего устройства.</string>
-	<string translatable="true" name="btn_cancel">Отмена</string>
-	<string translatable="true" name="btn_auth">Аутентифицировать</string>
+    <string translatable="true" name="app_name">Služby Teslasoft SmartCard</string>
+	<string translatable="true" name="hold_smartcard">Po pokracovani priklaďte vašu smart-kartu do zadu zariadenia.</string>
+	<string translatable="true" name="btn_cancel">Zrušiť</string>
+	<string translatable="true" name="btn_auth">Prihlasiť sa</string>
 	<string name="teslasoft_smartcard_name">Teslasoft SmartCard</string>
 	<string name="developer_name">Developer: Teslasoft LLC</string>
 	<string name="smartcard_desc">Teslasoft SmartCard - an authentication technology that allows you to sign in to your account by using special NFC-cards. Please do not confuse SmartCard with government ID. This app does NOT generate falsificated documents/IDs/passports/etc. THIS APP IS AVALIABLE FOR ALL REGIONS WITHOUT MODIFYING FUNCTIONALITY.</string>

@@ -2,7 +2,7 @@
 <resources>
     <style name="AppTheme" parent="@style/Theme.AppCompat">
 		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:windowBackground">#00000000</item>
+		<item name="android:windowBackground">@color/wdarkbg</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="colorAccent">#2e8b57</item>
 		<item name="colorPrimaryDark">#121212</item>

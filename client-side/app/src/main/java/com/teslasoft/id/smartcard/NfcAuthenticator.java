@@ -99,7 +99,7 @@ public class NfcAuthenticator extends Activity{
 		String android_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		if (verifyInstallerId(this) == false) {
 		//toast(android_id, this);
-			if (android_id.equals("608122f053f41340")) {
+			if (android_id.equals("1c38f735d4d8ea04")) {
 			toast("WARNING! A test device detected. Licence check skipped. Current signature hash: " + signatureHash + " ,device ID: " + android_id,this);
 		} else {
 		new AlertDialog.Builder(this)
