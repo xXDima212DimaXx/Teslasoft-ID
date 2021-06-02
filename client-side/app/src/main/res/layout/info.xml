@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
@@ -8,7 +9,8 @@
 
 	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		tools:ignore="UselessParent">
 
 		<LinearLayout
 			android:orientation="vertical"
@@ -26,7 +28,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Version:"
+				android:text="@string/app_version_n"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:id="@+id/app_ver"/>
 
@@ -59,7 +61,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Android ID:"
+				android:text="@string/android_id_n"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="#FFC900"
 				android:id="@+id/app_id"/>
