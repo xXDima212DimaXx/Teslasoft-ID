@@ -13,7 +13,7 @@
 
 ### How to use
 
-> Open https://cs.jarvis.studio/oauth (or click the button "Login with SmartCard")
+> Open https://id.teslasoft.org/oauth (or click the button "Login with SmartCard")
 > Hold your smartcard to the back of the phone
 > Click "Authenticate"
 > Enter your pincode. (Make note that you have only 3 attempts).
@@ -28,5 +28,3 @@
 > We're tested Mifare Classic and Mifare Light with 4 and 7 bytes serial numbers. Other types try at your own risk.
 
 #### You can develop your own backend to authenticate
-
-#### Compilied with AIDE. Use file *android-sdk.jar* to complie this project
