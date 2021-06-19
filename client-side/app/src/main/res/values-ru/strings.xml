@@ -18,4 +18,6 @@
 	<string name="btn_view_open_source_github">View open source (Github)</string>
     <string name="app_version_n">Version:</string>
 	<string name="android_id_n">Android ID:</string>
+    <string name="inf_android_id">\"Android device ID: \"</string>
+	<string name="info_app_ver">\"App version: \"</string>
 </resources>
