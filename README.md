@@ -27,4 +27,37 @@
 
 > We're tested Mifare Classic and Mifare Light with 4 and 7 bytes serial numbers. Other types try at your own risk.
 
+### API
+
+> You can get user data by using our API
+> On the page place this button:
+
+```html
+<a href = "intent://id.teslasoft.org/smartcard/open#Intent;scheme=https;package=com.teslasoft.id.smartcard;S.cont=https://YOUR_URL;end">Login with SmartCard</a>
+```
+
+> If login will successfull user will be redirected at https://YOUR_URL?secret=API_KEY&userid=USER_ID
+> Now you can call api by using API_KEY and USER_ID params
+
+```
+https://id.teslasoft.org/smartcard/api?secret=API_KEY&userid=USER_ID
+```
+
+> Now you will get response in a JSON format
+> User's avatar and background are located here (this operation does not require api key because avatar and background are public information)
+>
+> Avatar:
+
+```
+https://usercontent.teslasoft.org/a/USER_ID/icon.png
+```
+
+> Background:
+
+```
+https://usercontent.teslasoft.org/a/USER_ID/background.png
+```
+
+> ***Please note that you can access user data only with read permissions for security purposes.***
+
 #### You can develop your own backend to authenticate
