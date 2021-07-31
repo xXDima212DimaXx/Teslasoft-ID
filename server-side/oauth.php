@@ -10,7 +10,7 @@ $cn = <<<EOL
 <script>window.location.replace("$continue")</script>
 EOL;
 
-if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE['UserID']) && isset($_COOKIE['DeviceID'])) {
+/*if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE['UserID']) && isset($_COOKIE['DeviceID'])) {
     $xsessionid = $_COOKIE['SessionID'];
     $xuid = $_COOKIE['UserID'];
     $xtime = $_COOKIE['LoginTZ'];
@@ -24,21 +24,21 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
     echo ($xsession * $xtime)."<br>";
     *******************************/
     
-    if(isset($_GET['continue'])) {
+    /*if(isset($_GET['continue'])) {
         setcookie("continue", $continue, time() + (3600 * 24), "/", "cs.jarvis.studio", 1);
         if ($continue == "https://" || $continue == "http://") {
-            echo '<script>window.location.replace("https://cs.jarvis.studio/account/main")</script>';
+            echo '<script>window.location.replace("https://id.teslasoft.org/account/main")</script>';
         } else {
             echo $cn;
         }
     } else if ($xsessionid == ($xsession * $xtime)) {
-        echo '<script>window.location.replace("https://cs.jarvis.studio/account/main")</script>';
+        echo '<script>window.location.replace("https://id.teslasoft.org/account/main")</script>';
     } else {
         
     }
 } else {
     
-}
+}*/
 
 $smartcard_err = <<<EOL
 <!DOCTYPE html>
@@ -46,7 +46,7 @@ $smartcard_err = <<<EOL
     <head>
         <meta charset = "utf-8">
         <meta name="viewport" content= "width=device-width, user-scalable=no">
-        <link rel = "icon" href = "https://cs.jarvis.studio/smartcard/id.png">
+        <link rel = "icon" href = "https://id.teslasoft.org/smartcard/id.png">
         <title>Teslasoft ID</title>
         <style>
             html, body {
@@ -189,7 +189,7 @@ $smartcard_err = <<<EOL
     </head>
     <body>
         <div = "h">
-            <img class = "public-icon" src = "https://cs.jarvis.studio/smartcard/id.png">
+            <img class = "public-icon" src = "https://id.teslasoft.org/smartcard/id.png">
             <p class = "header">Teslasoft ID</p>
         </div>
         <div class = "login-form">
@@ -200,7 +200,7 @@ $smartcard_err = <<<EOL
             <p style = "color: #ffff00; text-align: center;">Also you need to switch to mobile view.</p>
             <br>
             <p style = "color: #ffff00; text-align: center;">You can login with email:</p>
-            <a href="https://jarvis.studio/ServiceLogin?did=cs.jarvis.studio&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
+            <a href="https://teslasoft.org/ServiceLogin?did=id.teslasoft.org&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
         </div>
     </body>
 </html>
@@ -213,7 +213,7 @@ if(isset($_GET['continue'])) {
 
 $smartcard_url = "";
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false) { // && stripos($ua,'mobile') !== false) {
-    $smartcard_url = "intent://cs.jarvis.studio/smartcard/open#Intent;scheme=https;package=com.teslasoft.smartcard;end";
+    $smartcard_url = "intent://id.teslasoft.org/smartcard/open#Intent;scheme=https;package=com.teslasoft.id.smartcard;S.cont=".$continue.";end";
 } else {
     echo($smartcard_err);
     exit();
@@ -225,7 +225,7 @@ $app = <<<EOL
     <head>
         <meta charset = "utf-8">
         <meta name="viewport" content= "width=device-width, user-scalable=no">
-        <link rel = "icon" href = "https://cs.jarvis.studio/smartcard/id.png">
+        <link rel = "icon" href = "https://id.teslasoft.org/smartcard/id.png">
         <title>Teslasoft ID</title>
         <style>
             html, body {
@@ -367,12 +367,12 @@ $app = <<<EOL
     </head>
     <body>
         <div = "h">
-            <img class = "public-icon" src = "https://cs.jarvis.studio/smartcard/id.png">
+            <img class = "public-icon" src = "https://id.teslasoft.org/smartcard/id.png">
             <p class = "header">Teslasoft ID</p>
         </div>
         <div class = "login-form">
             <a href="$smartcard_url"><button class = "action-button btn-aqua">Login with SmartCard</button></a>
-            <a href="https://jarvis.studio/ServiceLogin?did=cs.jarvis.studio&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
+            <a href="https://teslasoft.org/ServiceLogin?did=id.teslasoft.org&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
             <button class = "action-button btn-red br" onclick = "javascript:history.back()">Back to App</button>
         </div>
     </body>
@@ -385,7 +385,7 @@ $smartcard_only = <<<EOL
     <head>
         <meta charset = "utf-8">
         <meta name="viewport" content= "width=device-width, user-scalable=no">
-        <link rel = "icon" href = "https://cs.jarvis.studio/smartcard/id.png">
+        <link rel = "icon" href = "https://id.teslasoft.org/smartcard/id.png">
         <title>Teslasoft ID</title>
         <style>
             html, body {
@@ -527,7 +527,7 @@ $smartcard_only = <<<EOL
     </head>
     <body>
         <div = "h">
-            <img class = "public-icon" src = "https://cs.jarvis.studio/smartcard/id.png">
+            <img class = "public-icon" src = "https://id.teslasoft.org/smartcard/id.png">
             <p class = "header">Teslasoft ID</p>
         </div>
         <div class = "login-form">
@@ -544,7 +544,7 @@ $app_unc = <<<EOL
     <head>
         <meta charset = "utf-8">
         <meta name="viewport" content= "width=device-width, user-scalable=no">
-        <link rel = "icon" href = "https://cs.jarvis.studio/smartcard/id.png">
+        <link rel = "icon" href = "https://id.teslasoft.org/smartcard/id.png">
         <title>Teslasoft ID</title>
         <style>
             html, body {
@@ -686,12 +686,12 @@ $app_unc = <<<EOL
     </head>
     <body>
         <div = "h">
-            <img class = "public-icon" src = "https://cs.jarvis.studio/smartcard/id.png">
+            <img class = "public-icon" src = "https://id.teslasoft.org/smartcard/id.png">
             <p class = "header">Teslasoft ID</p>
         </div>
         <div class = "login-form">
             <a href="$smartcard_url"><button class = "action-button btn-aqua">Login with SmartCard</button></a>
-            <a href="https://jarvis.studio/ServiceLogin?did=cs.jarvis.studio&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
+            <a href="https://teslasoft.org/ServiceLogin?did=id.teslasoft.org&lang=en_US&c=$continue"><button class = "action-button btn-green br">Continue with Jarvis Account</button></a>
         </div>
     </body>
 </html>
@@ -703,7 +703,7 @@ $smartcard_only_unc = <<<EOL
     <head>
         <meta charset = "utf-8">
         <meta name="viewport" content= "width=device-width, user-scalable=no">
-        <link rel = "icon" href = "https://cs.jarvis.studio/smartcard/id.png">
+        <link rel = "icon" href = "https://id.teslasoft.org/smartcard/id.png">
         <title>Teslasoft ID</title>
         <style>
             html, body {
@@ -845,7 +845,7 @@ $smartcard_only_unc = <<<EOL
     </head>
     <body>
         <div = "h">
-            <img class = "public-icon" src = "https://cs.jarvis.studio/smartcard/id.png">
+            <img class = "public-icon" src = "https://id.teslasoft.org/smartcard/id.png">
             <p class = "header">Teslasoft ID</p>
         </div>
         <div class = "login-form">
@@ -856,13 +856,13 @@ $smartcard_only_unc = <<<EOL
 EOL;
 
 if ($cancelable == "false")
-    if ($continue == "https://cs.jarvis.studio/account/main") {
+    if ($continue == "https://id.teslasoft.org/account/main") {
         echo $smartcard_only_unc;
     } else {
         echo $app_unc;
     }
 else {
-    if ($continue == "https://cs.jarvis.studio/account/main") {
+    if ($continue == "https://id.teslasoft.org/account/main") {
         echo $smartcard_only;
     } else {
         echo $app;

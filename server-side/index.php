@@ -19,7 +19,7 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
     *******************************/
     
     if ($xsessionid == ($xsession * $xtime)) {
-        echo('<script>window.location.replace("https://cs.jarvis.studio/account/main");</script>');
+        echo('<script>window.location.replace("https://id.teslasoft.org/account/main");</script>');
     } else {
         unlogged();
     }
@@ -28,6 +28,6 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
 }
 
 function unlogged() {
-    echo('<script>window.location.replace("https://cs.jarvis.studio/oauth?continue=https://cs.jarvis.studio/account/main&cancelable=false");</script>');
+    echo('<script>window.location.replace("https://id.teslasoft.org/oauth?continue=https://id.teslasoft.org/account/main&cancelable=false");</script>');
 }
 ?>

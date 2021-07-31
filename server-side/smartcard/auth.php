@@ -4,11 +4,13 @@ $xuid = $_COOKIE['UserID'];
 $xtime = $_COOKIE['LoginTZ'];
 $xdevice = $_COOKIE['DeviceID'];
 
-if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE['UserID']) && isset($_COOKIE['DeviceID'])) {
+/*if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE['UserID']) && isset($_COOKIE['DeviceID'])) {
     $xsessionid = $_COOKIE['SessionID'];
     $xuid = $_COOKIE['UserID'];
     $xtime = $_COOKIE['LoginTZ'];
     $xsession = file_get_contents("./../users/".$xuid."/security/session");
+    
+    
     
     /***************************** DEBUG
     echo $xsessionid."<br>";
@@ -18,14 +20,14 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
     echo ($xsession * $xtime)."<br>";
     *******************************/
     
-    if ($xsessionid == ($xsession * $xtime)) {
+    /*if ($xsessionid == ($xsession * $xtime)) {
         echo '<script>window.location.replace("https://id.teslasoft.org/account/main")</script>';
     } else {
         
     }
 } else {
     
-}
+}*/
 
 // exit(); // Breakpoint
 
@@ -34,9 +36,13 @@ $sid = $_GET['sid'];
 $pwtoken = $_GET['pwtoken'];
 $uid = $_GET['uid'];
 $pincode = $_POST['pincode'];
-$continue = $_COOKIE['continue'];
+$continue = $_GET['continue'];
 $vc = $_GET['ver'];
 $vn = $_GET['vn'];
+
+$appi = file_get_contents("./../users/".$uid."/security/api_key.tf");
+
+$appurl = $continue."?secret=".$appi."&userid=".$uid;
 
 $app = <<<EOL
 <!DOCTYPE html>
@@ -203,7 +209,7 @@ $app = <<<EOL
         </div>-->
         <div class = "page">
             <div class = "pin-form">
-                <h3 class = "pin-title">Enter SmartCard PIN</h3>
+                <h3 class = "pin-title">Enter SmartCard PIN1</h3>
                 <form method="POST" action = "">
                     <input class = "pin-input" id = "pin" value = "$pincode" type = "password" unselectable="on" onselectstart = "return false;" onmousedown = "return false;" name = "pincode" readonly="readonly">
                     <table style = "border: none; border-spacing: 0; border-collapse: collapse;">
@@ -481,7 +487,7 @@ $cproccess = <<<EOL
     </head>
     <body>
         <span class = "text">Login successfull, redirecting ...</span>
-        <script>window.location.replace("$continue")</script>
+        <script>window.location.replace("$appurl")</script>
     </body>
 </html>
 EOL;
@@ -518,7 +524,7 @@ $error = <<<EOL
         </style>
     </head>
     <body>
-        <span class = "text-title">Incorrect PIN!</span>
+        <span class = "text-title">Incorrect PIN1!</span>
         <br>
         <span class = "text">Attempts: $cattempts</span>
         <br>
@@ -563,7 +569,7 @@ $dis = <<<EOL
         <br>
         <span class = "text">This SmardCard has been blocked for security purposes.</span>
         <br>
-        <span class = "text">SmartCard login disabled for this account: Too many attempts: Use SmardCard helper to create new SmartCard.</span>
+        <span class = "text">SmartCard login disabled for this account: Too many attempts: Please contact your IT-Administrator to renew your SmartCard.</span>
     </body>
 </html>
 EOL;
@@ -618,8 +624,8 @@ $tz = time();
 
 $devid = rand(30303030, 97000000);
 
-$nvc = "11793";
-$nvn = "1.17.93.20210619-stable";
+$nvc = "11841";
+$nvn = "1.18.41.20210731-stable";
 
 if ($vc == $nvc && $vn == $nvn) {
 $sessid = $lastses * $tz;
@@ -648,8 +654,8 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
                                             
                                             // echo($s);
                                             
-                                            if (isset($_COOKIE['continue'])) {
-                                                setcookie("continue", "", time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+                                            if (isset($_GET['continue'])) {
+                                                // setcookie("continue", "", time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
                                                 echo $cproccess;
                                             } else {
                                                 echo $proccess;

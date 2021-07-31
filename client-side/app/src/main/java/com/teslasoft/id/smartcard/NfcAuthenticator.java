@@ -58,6 +58,8 @@ public class NfcAuthenticator extends Activity {
 	 * private String isNotification;
 	 **********************************************************/
 
+	public String const_CONT;
+
 	@SuppressLint("PackageManagerGetSignatures")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class NfcAuthenticator extends Activity {
 			// toast("Debug: " + signatureHash, this);
 		} catch(Exception e) {
 			new AlertDialog.Builder(this)
-				.setTitle("Verification failed")
+				.setTitle("ERROR")
 				.setMessage("We can not check license because we can not check application signature. [ERR_APP_INVALID_SIGNATURE_HASH]: -2")
 				.setCancelable(false)
 				.setPositiveButton(android.R.string.ok, (dialog, which) -> finishAndRemoveTask())
@@ -95,11 +97,11 @@ public class NfcAuthenticator extends Activity {
 		@SuppressLint("HardwareIds") String android_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		if (!verifyInstallerId(this)) {
 			// DEBUG: toast(android_id, this);
-			if (android_id.equals("1c38f735d4d8ea04") || android_id.equals("6f612b6eb1950998")) {
+			if (android_id.equals("1c38f735d4d8ea04") || android_id.equals("aa0b455ca1bf7ae7")) {
 				toast("WARNING! A test device detected. License check skipped. Current signature hash: " + signatureHash + ", device ID: " + android_id,this);
 			} else {
 				new AlertDialog.Builder(this)
-					.setTitle("Verification failed")
+					.setTitle("ERROR")
 					.setMessage("We can not check license because this app installed from third-party source. Try to install it from Google Play. We perform this check to prevent tampering with API and security attacks. [ERR_PREFERAL_INSTALLED_BY_PACKAGE_INSTALLER]: -1")
 					.setCancelable(false)
 					.setPositiveButton(android.R.string.ok, (dialog, which) -> finishAndRemoveTask())
@@ -107,16 +109,45 @@ public class NfcAuthenticator extends Activity {
 			}
 		}
 		nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-		if(nfcAdapter == null){
-			toast("This device doesn't support NFC.", this);
-			finishAndRemoveTask();
+		if(nfcAdapter == null) {
+			new AlertDialog.Builder(this)
+					.setTitle("ERROR")
+					.setMessage("This application requires NFC that is not supported or disabled on your devices. [ERR_NFC_ADAPTER_FAILURE]: 4")
+					.setCancelable(false)
+					.setPositiveButton(android.R.string.ok, (dialog, which) -> finishAndRemoveTask())
+					.show();
 		}
 
-		readFromIntent(getIntent());
-		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-		tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
-		writeTagFilters = new IntentFilter[] { tagDetected };
+		try {
+			Intent intent = getIntent();
+			const_CONT = intent.getStringExtra("cont");
+			// toast("DEBUG: " + const_CONT, this);
+			// toast("DEBUG: " + cont, this);
+			if (const_CONT.toString().equals("null")) {
+				// toast("ERROR: No intent data found! API authentication has skipped.", this);
+				const_CONT = "https://id.teslasoft.org/account/main";
+				readFromIntent(getIntent());
+				pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+				IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+				tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+				writeTagFilters = new IntentFilter[] { tagDetected };
+			} else {
+				readFromIntent(getIntent());
+
+				pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+				IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+				tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+				writeTagFilters = new IntentFilter[] { tagDetected };
+			}
+		} catch (Exception __e) {
+			// toast("ERROR: No intent data found! API authentication has skipped.", this);
+			const_CONT = "https://id.teslasoft.org/account/main";
+			readFromIntent(getIntent());
+			pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+			IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+			tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+			writeTagFilters = new IntentFilter[] { tagDetected };
+		}
 	}
 
 	/* Piracy check starts */
@@ -173,7 +204,7 @@ public class NfcAuthenticator extends Activity {
 	@Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
-        readFromIntent(intent);
+        readFromIntent(getIntent());
         if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         }
@@ -194,6 +225,7 @@ public class NfcAuthenticator extends Activity {
     }
 
 	public void Authenticate(String token, String serial) {
+		// toast("DEBUG: " + const_CONT, this);
 		try {
 			Gson gson = new Gson();
 			Map <String,Object> map = new HashMap<>();
@@ -204,7 +236,7 @@ public class NfcAuthenticator extends Activity {
 			token = user_fwid.trim();
 			token = token.toUpperCase();
 			nfc_message.setText("SmartCard Info\n\nSerial Number: ".concat(serial.concat("\nSmartCard ID: ".concat(user_fwid.concat("\nUser ID: ".concat(user_id))))));
-			url = "https://id.teslasoft.org/smartcard/auth?cbs=".concat(token).concat("&sid=").concat(serial).concat("&pwtoken=").concat(pincode_encrypted).concat("&uid=").concat(user_id).concat("&ver=").concat(Integer.valueOf(versionCode).toString()).concat("&vn=").concat(versionName);
+			url = "https://id.teslasoft.org/smartcard/auth?cbs=".concat(token).concat("&sid=").concat(serial).concat("&pwtoken=").concat(pincode_encrypted).concat("&uid=").concat(user_id).concat("&ver=").concat(Integer.valueOf(versionCode).toString()).concat("&vn=").concat(versionName).concat("&continue=").concat(const_CONT);
 			loadbar.setVisibility(View.GONE);
 			actions.setVisibility(View.VISIBLE);
 		} catch(Exception e) {

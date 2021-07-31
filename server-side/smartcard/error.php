@@ -44,7 +44,7 @@ $app = <<<EOL
         <br>
         <span>Suggestion how to fix: $suggestion</span>
         <br>
-        <a href = "https://cs.jarvis.studio/oauth">Back to login page</a>
+        <a href = "https://id.teslasoft.org/oauth">Back to login page</a>
     </body>
 </html>
 EOL;

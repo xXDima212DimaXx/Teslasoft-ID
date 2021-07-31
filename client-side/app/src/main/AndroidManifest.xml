@@ -46,6 +46,12 @@
 					android:host="id.teslasoft.org"
 					android:pathPrefix="/smartcard/open"/>
 			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="scauth" android:host="id.teslasoft.org/smartcard/open" />
+			</intent-filter>
 			<meta-data
 				android:name="default-url"
 				android:value="https://id.teslasoft.org"/>

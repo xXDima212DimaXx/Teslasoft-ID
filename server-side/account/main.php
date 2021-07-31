@@ -3,7 +3,7 @@ $sessionid = $_COOKIE['SessionID'];
 $uid = $_COOKIE['UserID'];
 $time = $_COOKIE['LoginTZ'];
 $device = $_COOKIE['DeviceID'];
-setcookie("continue", "", time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
+setcookie("continue", "", time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
 
 $session = file_get_contents("./../users/".$uid."/security/session");
 $skey = $session * $time;
@@ -13,11 +13,11 @@ if (isset($_GET["action"])) {
     $action = $_GET["action"];
     
     if ($action == "logout") {
-        setcookie("SessionID", $sessionid, time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-        setcookie("LoginTZ", $time, time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-        setcookie("UserID", $uid, time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-        setcookie("DeviceID", $device, time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-        setcookie("continue", "", time() - (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
+        setcookie("SessionID", $sessionid, time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+        setcookie("LoginTZ", $time, time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+        setcookie("UserID", $uid, time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+        setcookie("DeviceID", $device, time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+        setcookie("continue", "", time() - (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
         unlogged();
     }
 }
@@ -30,13 +30,41 @@ $userbg = "./../users/".$uid."/public/photos/background.png";
 $userbirthday = file_get_contents("./../users/".$uid."/private/birthday");
 $subscription = file_get_contents("./../users/".$uid."/public/subscription");
 
+$cc = "";
+$prv = "";
+if ($subscription == "1") {
+    $cc = "#398512";
+    $prv = "MEMBER";
+} else if ($subscription == "2") {
+    $cc = "#6a28c7";
+    $prv = "VIP";
+} else if ($subscription == "3") {
+    $cc = "#999999";
+    $prv = "SILVER";
+} else if ($subscription == "4") {
+    $cc = "#b89d5e";
+    $prv = "GOLD";
+} else if ($subscription == "5") {
+    $cc = "#00a0c4";
+    $prv = "DIAMOND";
+} else if ($subscription == "6") {
+    $cc = "#2e8b57";
+    $prv = "OPERATOR";
+} else if ($subscription == "7") {
+    $cc = "#f25a0f";
+    $prv = "ADMIN";
+} else if ($subscription == "8") {
+    $cc = "#f20f12";
+    $prv = "OWNER";
+}
+
 if (time() > ($time + (3600 * 24 * 6))) {
-    // Auto renew session (+ 7 days) if user signed in to your account
+    // Auto renew session (+ 7 days) if user signed into account
     // If user was inactive from 7 days on this device the session will close automatically (auto logout)
-    setcookie("SessionID", $sessionid, time() + (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-    setcookie("DeviceID", $device, time() + (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-    setcookie("LoginTZ", $time, time() + (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
-    setcookie("UserID", $uid, time() + (3600 * 24 * 7), "/", "cs.jarvis.studio", 1);
+    setcookie("SessionID", $sessionid, time() + (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+    setcookie("DeviceID", $device, time() + (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+    setcookie("LoginTZ", $time, time() + (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
+    setcookie("UserID", $uid, time() + (3600 * 24 * 7), "/", "id.teslasoft.org", 1);
 }
 
 $app = <<<EOL
@@ -55,7 +83,7 @@ $app = <<<EOL
             
             .header {
                 width: 100vw;
-                height: 60px;
+                height: 56px;
                 background-color: rgba(50, 50, 50, 0.7);
                 position: fixed;
             }
@@ -88,7 +116,7 @@ $app = <<<EOL
             .card-user {
                 border-radius: 8px;
                 width: 100%;
-                height: 320px;
+                height: 380px;
                 background-color: #212121;
                 
             }
@@ -109,7 +137,7 @@ $app = <<<EOL
                 border-radius: 50%;
                 margin-left: calc(50% - 64px);
                 margin-top: -64px;
-                border: 4px solid #2e8b57;
+                border: 4px solid $cc;
             }
             
             .user-icon {
@@ -128,8 +156,24 @@ $app = <<<EOL
                 width: 200px;
                 text-align: center;
                 margin-top: 16px;
-                margin-bottom: 16px;
+                margin-bottom: 0px;
                 font-size: 20px;
+            }
+            
+            .user-email {
+                margin-left: 24px;
+                margin-top: 16px;
+                margin-bottom: 0px;
+                font-size: 16px;
+                color: #afafaf;
+            }
+            
+            .user-id {
+                margin-left: 24px;
+                margin-top: 16px;
+                margin-bottom: 0px;
+                font-size: 16px;
+                color: #afafaf;
             }
             
             .actions {
@@ -200,11 +244,30 @@ $app = <<<EOL
                 background-color: rgba(242, 0, 40, 1);
                 box-shadow: 0 0 0 3px rgba(242, 0, 40, 0.6);
             }
+            
+            .priv-badge {
+                background-color: $cc;
+                border-radius: 3px;
+                font-size: 12px;
+                padding: 2px;
+                user-select: none;
+            }
+            
+            .page-title {
+                color: #fafafa;
+                padding: 0;
+                position: fixed;
+                margin: 0;
+                left: 56px;
+                top: 18px;
+                font-size: 20px;
+            }
         </style>
     </head>
     <body>
         <div class = "header">
-            
+            <i class = "material-icons" style="font-size:24px;color:white;left:16px;top:16px;position: fixed;" id = "btn_menu">menu</i>
+            <p class = "page-title">My account</p>
         </div>
         <div class = "page">
             <div class = "block-user">
@@ -218,7 +281,9 @@ $app = <<<EOL
                                 
                             </div>
                         </div>
-                        <p class = "user-name">$username</p>
+                        <p class = "user-name">$username &nbsp;<span class = "priv-badge">&nbsp;$prv&nbsp;</span></p>
+                        <p class = "user-email">Email: $useremail</p>
+                        <p class = "user-id">ID: $userid</p>
                         <div class = "actions">
                             <div class = "user-actions">
                                 <table class = "buttons">
@@ -227,7 +292,7 @@ $app = <<<EOL
                                             <button class = "action-button btn-green">Account settings</button>
                                         </td>
                                         <td style = "padding: 4px;">
-                                            <a href = "https://cs.jarvis.studio/account/main?action=logout"><button class = "action-button btn-red">Sign out</button></a>
+                                            <a href = "https://id.teslasoft.org/account/main?action=logout"><button class = "action-button btn-red">Sign out</button></a>
                                         </td>
                                     </tr>
                                 </table>
@@ -237,9 +302,20 @@ $app = <<<EOL
                 </div>
             </div>
         </div>
+        <script>
+            window.onload = function(){
+                var styles = "@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');@import url('https://fonts.googleapis.com/icon?family=Material+Icons');";
+                var newSS=document.createElement('link');
+                newSS.rel='stylesheet';
+                newSS.href='data:text/css,'+escape(styles);
+                document.getElementsByTagName("head")[0].appendChild(newSS);
+            }
+        </script>
     </body>
 </html>
 EOL;
+
+/********************************************* Service page ************************************************/
 
 $page = <<<EOL
 <!DOCTYPE html>
@@ -338,9 +414,9 @@ $page = <<<EOL
         </style>
     </head>
     <body>
-<pre class = "code text-title"><span>admin@cs.jarvis.studio~# cat \$username</span>
+<pre class = "code text-title"><span>admin@id.teslasoft.org~# cat \$username</span>
 <span>$username</span>
-<span>admin@cs.jarvis.studio~# cat /smartcard/main.php</span>
+<span>admin@id.teslasoft.org~# cat /smartcard/main.php</span>
 <span class = "line-number">1 |</span>&nbsp;// TODO: Implement this page
 <span class = "line-number">2 |</span>&nbsp;/* Additional information */
 <span class = "line-number">3 |</span>&nbsp;/************************************************************
@@ -377,7 +453,7 @@ $page = <<<EOL
 <span class = "line-number">34|</span>&nbsp; ************************************************************/
 <span class = "line-number">35|</span>&nbsp; 
 <span>admin@cs.jarvis.studio~# logout</span>
-<span>Click <a href = "https://cs.jarvis.studio/account/main?action=logout">here</a> to logout</span>
+<span>Click <a href = "https://id.teslasoft.org/account/main?action=logout">here</a> to logout</span>
 </pre>
     </body>
 </html>
@@ -390,7 +466,7 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
     $time = $_COOKIE['LoginTZ'];
     
     if ($sessionid == ($session * $time)) {
-        echo $page;
+        echo $app;
     } else {
         unlogged();
     }
@@ -399,6 +475,6 @@ if (isset($_COOKIE['SessionID']) && isset($_COOKIE['LoginTZ']) && isset($_COOKIE
 }
 
 function unlogged() {
-    echo('<script>window.location.replace("https://cs.jarvis.studio/oauth.php?continue=https://cs.jarvis.studio/account/main");</script>');
+    echo('<script>window.location.replace("https://id.teslasoft.org/oauth.php?continue=https://id.teslasoft.org/account/main");</script>');
 }
 ?>

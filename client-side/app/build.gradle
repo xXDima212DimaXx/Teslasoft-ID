@@ -10,8 +10,8 @@ android {
         applicationId "com.teslasoft.id.smartcard"
         minSdkVersion 25
         targetSdkVersion 30
-        versionCode 11793
-        versionName "1.17.93.20210619-stable"
+        versionCode 11841
+        versionName "1.18.41.20210731-stable"
     }
 
     buildTypes {

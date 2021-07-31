@@ -36,8 +36,8 @@ public class InfoActivity extends Activity
 		
 		@SuppressLint("HardwareIds") String android_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		
-		app_id.setText(getString(R.string.inf_android_id) + android_id);
-		app_ver.setText(getString(R.string.info_app_ver) + version);
+		app_id.setText(getString(R.string.inf_android_id) + " " + android_id);
+		app_ver.setText(getString(R.string.info_app_ver) + " " + version);
 	}
 	
 	public void Auth(View v) {
