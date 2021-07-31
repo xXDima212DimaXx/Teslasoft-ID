@@ -13,19 +13,19 @@
 
 ### How to use
 
-> Open https://id.teslasoft.org/oauth (or click the button "Login with SmartCard")
+> Open https://id.teslasoft.org/oauth?continue=YOUR_URL (or click the button "Login with SmartCard")
 > Hold your smartcard to the back of the phone
 > Click "Authenticate"
-> Enter your pincode. (Make note that you have only 3 attempts).
-> You will be redirected automatically to the site.
+> Enter your pincode (PIN1). (Make note that you have only 3 attempts).
+> You will be redirected automatically to the target site.
 
 ### How to get SmartCard
 
-> Contact your administrator
+> Contact your IT-Administrator. (Currently SmartCards can be issued only for Teslasoft members)
 
 ### Which types of smartcards are supported
 
-> We're tested Mifare Classic and Mifare Light with 4 and 7 bytes serial numbers. Other types try at your own risk.
+> We're tested Mifare Classic and Mifare UltraLight with 4 and 7 bytes serial numbers. Other types try at your own risk.
 
 ### API
 
@@ -36,15 +36,17 @@
 <a href = "intent://id.teslasoft.org/smartcard/open#Intent;scheme=https;package=com.teslasoft.id.smartcard;S.cont=https://YOUR_URL;end">Login with SmartCard</a>
 ```
 
-> If login will successfull user will be redirected at https://YOUR_URL?secret=API_KEY&userid=USER_ID
-> Now you can call api by using API_KEY and USER_ID params
+> If login will successfull user will be redirected to https://YOUR_URL?secret=API_KEY&userid=USER_ID
+> 
+> Now you can call api by using API_KEY and USER_ID params:
 
 ```
 https://id.teslasoft.org/smartcard/api?secret=API_KEY&userid=USER_ID
 ```
 
 > Now you will get response in a JSON format
-> User's avatar and background are located here (this operation does not require api key because avatar and background are public information)
+> 
+> User's avatar and background are located here (this operation does not require api key because avatar and background are public information):
 >
 > Avatar:
 
@@ -59,5 +61,5 @@ https://usercontent.teslasoft.org/a/USER_ID/background.png
 ```
 
 > ***Please note that you can access user data only with read permissions for security purposes.***
-
-#### You can develop your own backend to authenticate
+>
+> ***This API can be used to create new accounts on your site/app based on the SmartCard information.***
