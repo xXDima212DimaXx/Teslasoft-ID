@@ -63,5 +63,3 @@ https://usercontent.teslasoft.org/a/USER_ID/background.png
 > ***Please note that you can access user data only with read permissions for security purposes.***
 >
 > ***This API can be used to create new accounts on your site/app based on the SmartCard information.***
-
-## WARNING! The graphical objects (icons, drawables, textures, etc) is a property of Teslasoft. You may not use it in your work.
