@@ -4,6 +4,15 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.NFC" />
 	<uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
+	<uses-permission android:name="com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK"/>
+	<permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.MAIN" />
+		</intent>
+	</queries>
+
 	<uses-feature
         android:name="android.hardware.nfc"
         android:required="true"/>

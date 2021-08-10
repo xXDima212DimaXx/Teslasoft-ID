@@ -2,4 +2,5 @@
 <resources>
     <string name="inf_android_id">Android device ID:</string>
     <string name="info_app_ver">App version:</string>
+    <string name="sg">Signature:</string>
 </resources>

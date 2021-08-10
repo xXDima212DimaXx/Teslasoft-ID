@@ -17,11 +17,13 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +47,7 @@ public class NfcAuthenticator extends Activity {
 	public Signature sig;
 	public int versionCode = BuildConfig.VERSION_CODE;
 	public String versionName = BuildConfig.VERSION_NAME;
+	public PackageManager packageManager;
 
 	/***********************************************************
 	 * Unimplemented:
@@ -70,11 +73,28 @@ public class NfcAuthenticator extends Activity {
 		loadbar = findViewById(R.id.loadbar);
 		actions = findViewById(R.id.actions);
 		context = this;
+		packageManager = context.getPackageManager();
+
+		if (isPackageInstalled("com.teslasoft.libraries.support", packageManager)) {
+			if (this.checkSelfPermission("com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK") == PackageManager.PERMISSION_GRANTED) {
+
+			} else {
+				requestPermissions(new String[]{"com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK"}, 22);
+			}
+		} else {
+			new AlertDialog.Builder(this)
+					.setTitle("ERROR")
+					.setMessage("This app requires one or more features of Teslasoft Core (com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK, com.teslasoft.jarvis.core.SmartCardService, com.teslasoft.jarvis.licence.PiracyCheck) that is not installed. Would you like to open Google Play and install it?")
+					.setCancelable(false)
+					.setNegativeButton(android.R.string.cancel, (dialog, which) -> finishAndRemoveTask())
+					.setPositiveButton(android.R.string.ok, (dialog, which) -> openPlay(this))
+					.show();
+		}
 
 		try {
 			sig = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES).signatures[0];
 			signatureHash = Integer.toString(sig.hashCode());
-			// toast("Debug: " + signatureHash, this);
+			toast("Debug: " + signatureHash, this);
 		} catch(Exception e) {
 			new AlertDialog.Builder(this)
 				.setTitle("ERROR")
@@ -97,8 +117,8 @@ public class NfcAuthenticator extends Activity {
 		@SuppressLint("HardwareIds") String android_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		if (!verifyInstallerId(this)) {
 			// DEBUG: toast(android_id, this);
-			if (android_id.equals("1c38f735d4d8ea04") || android_id.equals("aa0b455ca1bf7ae7")) {
-				toast("WARNING! A test device detected. License check skipped. Current signature hash: " + signatureHash + ", device ID: " + android_id,this);
+			if (android_id.equals("d15c94372be47f06")) {
+				// toast("WARNING! A test device detected. License check skipped. Current signature hash: " + signatureHash + ", device ID: " + android_id,this);
 			} else {
 				new AlertDialog.Builder(this)
 					.setTitle("ERROR")
@@ -108,6 +128,7 @@ public class NfcAuthenticator extends Activity {
 					.show();
 			}
 		}
+
 		nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if(nfcAdapter == null) {
 			new AlertDialog.Builder(this)
@@ -147,6 +168,48 @@ public class NfcAuthenticator extends Activity {
 			IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
 			tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
 			writeTagFilters = new IntentFilter[] { tagDetected };
+		}
+	}
+
+	public void openPlay(Context context) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.teslasoft.libraries.support"));
+		startActivity(browserIntent);
+		finishAndRemoveTask();
+	}
+
+	private boolean isPackageInstalled(String packageName, PackageManager packageManager) {
+		try {
+			packageManager.getPackageInfo(packageName, 0);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+	}
+
+
+
+	public void openPermissions(Context context) {
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+		Uri uri = Uri.fromParts("package", getPackageName(), null);
+		intent.setData(uri);
+		startActivity(intent);
+		finishAndRemoveTask();
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		switch (requestCode) {
+			case 23:
+				break;
+			default:
+				new AlertDialog.Builder(this)
+						.setTitle("ERROR")
+						.setMessage("This app is not authorized to use Teslasoft SmartCard API. If you have already provided permission and still see this error, please restart this app. Would you like to open app settings now?")
+						.setCancelable(false)
+						.setNegativeButton(android.R.string.cancel, (dialog, which) -> finishAndRemoveTask())
+						.setPositiveButton(android.R.string.ok, (dialog, which) -> openPermissions(this))
+						.show();
 		}
 	}
 
@@ -236,7 +299,7 @@ public class NfcAuthenticator extends Activity {
 			token = user_fwid.trim();
 			token = token.toUpperCase();
 			nfc_message.setText("SmartCard Info\n\nSerial Number: ".concat(serial.concat("\nSmartCard ID: ".concat(user_fwid.concat("\nUser ID: ".concat(user_id))))));
-			url = "https://id.teslasoft.org/smartcard/auth?cbs=".concat(token).concat("&sid=").concat(serial).concat("&pwtoken=").concat(pincode_encrypted).concat("&uid=").concat(user_id).concat("&ver=").concat(Integer.valueOf(versionCode).toString()).concat("&vn=").concat(versionName).concat("&continue=").concat(const_CONT);
+			url = "https://id.teslasoft.org/smartcard/auth?cbs=".concat(token).concat("&sid=").concat(serial).concat("&pwtoken=").concat(pincode_encrypted).concat("&uid=").concat(user_id).concat("&ver=").concat(Integer.valueOf(versionCode).toString()).concat("&vn=").concat(versionName).concat("&continue=").concat(const_CONT).concat("&signature=").concat(signatureHash);
 			loadbar.setVisibility(View.GONE);
 			actions.setVisibility(View.VISIBLE);
 		} catch(Exception e) {
