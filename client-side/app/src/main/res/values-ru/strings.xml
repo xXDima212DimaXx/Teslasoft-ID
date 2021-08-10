@@ -21,4 +21,5 @@
     <string name="inf_android_id">Android device ID:</string>
 	<string name="info_app_ver">Версия:</string>
     <string name="sg">Цифровая подпись:</string>
+	<string name="hide_launcher_icon">Убрать иконку приложения с рабочего стола</string>
 </resources>

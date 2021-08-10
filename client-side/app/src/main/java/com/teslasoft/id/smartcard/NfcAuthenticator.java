@@ -75,26 +75,30 @@ public class NfcAuthenticator extends Activity {
 		context = this;
 		packageManager = context.getPackageManager();
 
-		if (isPackageInstalled("com.teslasoft.libraries.support", packageManager)) {
-			if (this.checkSelfPermission("com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK") == PackageManager.PERMISSION_GRANTED) {
+		try {
+			if (isPackageInstalled("com.teslasoft.libraries.support", packageManager)) {
+				if (this.checkSelfPermission("com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK") == PackageManager.PERMISSION_GRANTED) {
 
+				} else {
+					requestPermissions(new String[]{"com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK"}, 22);
+				}
 			} else {
-				requestPermissions(new String[]{"com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK"}, 22);
+				new AlertDialog.Builder(this)
+						.setTitle("ERROR")
+						.setMessage("This app requires one or more features of Teslasoft Core (com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK, com.teslasoft.jarvis.core.SmartCardService, com.teslasoft.jarvis.licence.PiracyCheck) that is not installed. Would you like to open Google Play and install it? [ERR_FEATURES_MISSING]: 9")
+						.setCancelable(false)
+						.setNegativeButton(android.R.string.cancel, (dialog, which) -> finishAndRemoveTask())
+						.setPositiveButton(android.R.string.ok, (dialog, which) -> openPlay(this))
+						.show();
 			}
-		} else {
-			new AlertDialog.Builder(this)
-					.setTitle("ERROR")
-					.setMessage("This app requires one or more features of Teslasoft Core (com.teslasoft.core.permission.ACCESS_SMARTCARD_FRAMEWORK, com.teslasoft.jarvis.core.SmartCardService, com.teslasoft.jarvis.licence.PiracyCheck) that is not installed. Would you like to open Google Play and install it?")
-					.setCancelable(false)
-					.setNegativeButton(android.R.string.cancel, (dialog, which) -> finishAndRemoveTask())
-					.setPositiveButton(android.R.string.ok, (dialog, which) -> openPlay(this))
-					.show();
+		} catch (Exception e) {
+			toast(e.toString(), this);
 		}
 
 		try {
 			sig = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES).signatures[0];
 			signatureHash = Integer.toString(sig.hashCode());
-			toast("Debug: " + signatureHash, this);
+			// toast("Debug: " + signatureHash, this);
 		} catch(Exception e) {
 			new AlertDialog.Builder(this)
 				.setTitle("ERROR")
@@ -133,10 +137,21 @@ public class NfcAuthenticator extends Activity {
 		if(nfcAdapter == null) {
 			new AlertDialog.Builder(this)
 					.setTitle("ERROR")
-					.setMessage("This application requires NFC that is not supported or disabled on your devices. [ERR_NFC_ADAPTER_FAILURE]: 4")
+					.setMessage("This application requires NFC that is not supported on this device. [ERR_NFC_ADAPTER_FAILURE]: 4")
 					.setCancelable(false)
 					.setPositiveButton(android.R.string.ok, (dialog, which) -> finishAndRemoveTask())
 					.show();
+		} else {
+			if(nfcAdapter.isEnabled()) {
+
+			} else {
+				new AlertDialog.Builder(this)
+						.setTitle("ERROR")
+						.setMessage("This application requires NFC that is currently disabled on this device. Please enable it first. [ERR_NFC_ADAPTER_UNAVAILABLE]: 5")
+						.setCancelable(false)
+						.setPositiveButton(android.R.string.ok, (dialog, which) -> finishAndRemoveTask())
+						.show();
+			}
 		}
 
 		try {
@@ -205,9 +220,10 @@ public class NfcAuthenticator extends Activity {
 			default:
 				new AlertDialog.Builder(this)
 						.setTitle("ERROR")
-						.setMessage("This app is not authorized to use Teslasoft SmartCard API. If you have already provided permission and still see this error, please restart this app. Would you like to open app settings now?")
+						.setMessage("This app is not authorized to use Teslasoft SmartCard API. If you have already provided permission and still see this error, please restart this app. Also you may need to update Teslasoft Core to the latest version. Would you like to open app settings now? [ERR_PERMISSION_DENIED]: 7")
 						.setCancelable(false)
 						.setNegativeButton(android.R.string.cancel, (dialog, which) -> finishAndRemoveTask())
+						.setNeutralButton("Update", (dialog, which) -> openPlay(this))
 						.setPositiveButton(android.R.string.ok, (dialog, which) -> openPermissions(this))
 						.show();
 		}
@@ -276,15 +292,23 @@ public class NfcAuthenticator extends Activity {
 	@Override
     public void onPause() {
         super.onPause();
-        writeMode = false;
-        nfcAdapter.disableForegroundDispatch(this);
+        try {
+			writeMode = false;
+			nfcAdapter.disableForegroundDispatch(this);
+		} catch(Exception e) {
+			toast("ERROR: NFC Adapter fail. Maybe this app is not supported on this device.", this);
+		}
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        writeMode = true;
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+        try {
+			writeMode = true;
+			nfcAdapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+		} catch (Exception e) {
+			toast("ERROR: NFC Adapter fail. Maybe this app is not supported on this device.", this);
+		}
     }
 
 	public void Authenticate(String token, String serial) {

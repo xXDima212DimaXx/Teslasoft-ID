@@ -1,15 +1,20 @@
 package com.teslasoft.id.smartcard;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Handler;
 import android.view.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.TextView;
 import android.content.pm.PackageInfo;
+import android.widget.Toast;
 
 public class InfoActivity extends Activity
 {
@@ -21,6 +26,7 @@ public class InfoActivity extends Activity
 	public Signature sig;
 	public int versionCode = BuildConfig.VERSION_CODE;
 	public String versionName = BuildConfig.VERSION_NAME;
+	public Context context;
 	
 	@SuppressLint({"SetTextI18n", "PackageManagerGetSignatures"})
 	@Override
@@ -78,5 +84,37 @@ public class InfoActivity extends Activity
 		Intent github = new Intent(Intent.ACTION_VIEW);
 		github.setData(Uri.parse("https://github.com/xXDima212DimaXx/Teslasoft-ID"));
 		startActivity(github);
+	}
+
+	public void LisLauncher(View view) {
+		new AlertDialog.Builder(this)
+				.setTitle("Question")
+				.setMessage("You can hide icon to reduce amount of icons on your desktop. This page will also be hidden. Would you like to hide launcher icon? You can recover it by reinstalling app. You can still use this app by opening supported links.")
+				.setCancelable(false)
+				.setNegativeButton(android.R.string.cancel, (dialog, which) -> doNothing())
+				.setPositiveButton(android.R.string.ok, (dialog, which) -> hideIcon(this))
+				.show();
+	}
+
+	public void hideIcon(Context context) {
+		PackageManager pm = getPackageManager();
+		pm.setComponentEnabledSetting(new ComponentName(this, com.teslasoft.id.smartcard.InfoActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+		toast("Launcher icon has been hidden successfully", this);
+	}
+
+	public void doNothing() {
+
+	}
+
+	public Handler mHandler = new Handler();
+	public void toast(final CharSequence text, final Context context) {
+		mHandler.post(() -> {
+			try {
+				Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
+			}
+			catch(Exception ignored) {
+
+			}
+		});
 	}
 }

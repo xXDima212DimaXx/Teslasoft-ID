@@ -119,6 +119,12 @@
 				android:text="@string/btn_view_open_source_github"
 				android:onClick="Github"/>
 
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="48dp"
+				android:text="@string/hide_launcher_icon"
+				android:onClick="LisLauncher"/>
+
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>
